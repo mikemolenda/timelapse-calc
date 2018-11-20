@@ -1,0 +1,80 @@
+<html>
+<head>
+	<script type="text/javascript">
+		//show/hide custom fps input
+		
+		function calculateInterval() {
+		//input record time
+			var recHour = document.getElementById("recHour").value;
+			var recMin = document.getElementById("recMin").value;
+			var recSec = document.getElementById("recSec").value;
+		//calculate record time in seconds
+			var recSecTotal = (recHour * 3600) + (recMin * 60) + (recSec * 1);
+		//input clip time
+			var clipHour = document.getElementById("clipHour").value;
+			var clipMin = document.getElementById("clipMin").value;
+			var clipSec = document.getElementById("clipSec").value;
+		//calculate clip time in seconds
+			var clipSecTotal = (clipHour * 3600) + (clipMin * 60) + (clipSec * 1);
+		//input frame rate
+			var frameRate = document.getElementById("frameRate").value;
+			if (isNaN(frameRate))
+			{
+				var frameRate = customFPS;
+			}
+		//calculate number of frames
+			var frameTotal = clipSecTotal * frameRate;
+			var fpsArray = 0;
+			var interval = recSecTotal / frameTotal;
+			document.getElementById("interval").value = +interval.toFixed(2);
+		}
+	</script>
+</head>
+<h1>Time Lapse Calculator</h1>
+	<div id="calculator">
+		<h2>Record Duration</h2>
+			<input type="text" id="recHour" value="0"> hours<br />
+			<input type="text" id="recMin" value="0"> minutes<br />
+			<input type="text" id="recSec" value="0"> seconds
+		<h2>Output Clip Duration</h2>
+			<input type="text" id="clipHour" value="0"> hours<br />
+			<input type="text" id="clipMin" value="0"> minutes<br />
+			<input type="text" id="clipSec" value="1"> seconds
+		<h2>Frame Rate</h2>
+			<select id="frameRate">
+				<option>23.98</option>
+				<option>24.00</option>
+				<option>25.00</option>
+				<option>29.97</option>
+				<option>30.00</option>
+				<option>50.00</option>
+				<option>59.94</option>
+				<option>60.00</option>
+				<option>Custom</option>
+			</select>
+			<input type="text" id="" value="24"> fps
+		<h2>Interval</h2>
+			<input type="text" id="interval"> seconds per frame<br />
+			<button onclick="calculateInterval()">Calculate</button>
+	</div>
+	<div id="log">
+		<h2>Log</h2>
+		<table style="vertical-align: top;">
+			<tr style="font-weight: bold;">
+				<td>Record</td>
+				<td>Clip</td>
+				<td>23.98</td>
+				<td>24.00</td>
+				<td>25.00</td>
+				<td>29.97</td>
+				<td>30.00</td>
+				<td>50.00</td>
+				<td>59.94</td>
+				<td>60.00</td>
+				<td>Custom</td>
+				<td id="customFPS"></td>
+				<!--ex: 1.5" @ 12.00 fps / interval @ customFPS-->
+			</tr>
+		</table>
+	</div>
+</html>
